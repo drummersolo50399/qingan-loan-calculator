@@ -1,0 +1,1658 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, user-scalable=no">
+<title>青安貸款 3.0 ｜ 資格試算</title>
+
+<!-- PWA / Add to Home Screen -->
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#d9662f">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="青安貸款3.0">
+<link rel="apple-touch-icon" href="icon-180.png">
+<link rel="icon" href="icon-192.png" type="image/png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@600;700;900&family=Noto+Sans+TC:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --purple-deep:#c1602f;
+    --purple-mid:#e08a4f;
+    --purple-light:#fbe4cf;
+    --purple-accent:#d9662f;
+    --purple-accent-2:#e8935a;
+    --lav-surface:#fdf0e2;
+    --sage:#e3ecd8;
+    --sage-text:#3f6b46;
+    --cream:#fffaf3;
+    --ink:#4a3a2e;
+    --ink-soft:#8a7a6b;
+    --line:#eee0cd;
+    --ok:#3f6b46;
+    --serif: "Noto Serif TC", "Georgia", serif;
+    font-family: "Noto Sans TC","PingFang TC","Microsoft JhengHei",-apple-system,BlinkMacSystemFont,sans-serif;
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;background:var(--cream);color:var(--ink);}
+  body{display:flex;justify-content:center;}
+  .app{
+    width:100%;
+    max-width:430px;
+    min-height:100vh;
+    background:var(--cream);
+    position:relative;
+    padding-bottom:96px;
+  }
+
+  /* ---- status-ish top spacer ---- */
+  .statusbar{height:14px;}
+
+  /* ---- hero banner ---- */
+  .hero{
+    margin:14px 16px 0;
+    border-radius:24px;
+    padding:26px 22px 28px;
+    background:linear-gradient(135deg, #e08a4f 0%, #eda868 100%);
+    color:#fff;
+    position:relative;
+    overflow:hidden;
+  }
+  .hero::after{
+    content:"";
+    position:absolute;
+    right:-30px; top:-40px;
+    width:150px;height:150px;
+    border-radius:50%;
+    background:rgba(255,255,255,.14);
+  }
+  .badge{
+    display:inline-block;
+    font-size:11.5px;
+    background:rgba(255,255,255,.24);
+    color:#fff;
+    border:none;
+    padding:5px 13px;
+    border-radius:999px;
+    margin-bottom:14px;
+    letter-spacing:.5px;
+    font-weight:700;
+  }
+  .hero h1{
+    font-family:var(--serif);
+    font-size:32px;
+    margin:0 0 12px;
+    font-weight:700;
+    letter-spacing:.5px;
+  }
+  .hero p{
+    margin:0 0 16px;
+    font-size:13.5px;
+    line-height:1.7;
+    color:rgba(255,255,255,.92);
+    max-width:340px;
+  }
+  .hero .period{
+    font-size:12.5px;
+    color:rgba(255,255,255,.85);
+    padding-top:14px;
+    border-top:1px solid rgba(255,255,255,.3);
+  }
+  .hero .period b{
+    font-weight:700;
+    color:var(--purple-accent-2);
+    margin-left:6px;
+  }
+
+  .stats{
+    margin:14px 16px 0;
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:10px;
+  }
+  .stat{
+    background:#fff;
+    border:1px solid var(--line);
+    border-radius:16px;
+    padding:14px 6px;
+    text-align:center;
+    box-shadow:0 4px 12px rgba(217,102,47,.08);
+  }
+  .stat .num{
+    font-family:var(--serif);
+    font-size:21px;
+    font-weight:700;
+    color:var(--purple-accent);
+  }
+  .stat .num small{font-size:12px;font-weight:700;margin-left:1px;}
+  .stat .label{
+    font-size:11.5px;
+    color:var(--ink-soft);
+    margin-top:4px;
+  }
+
+  /* ---- section heading row ---- */
+  .section-row{
+    display:flex;
+    align-items:baseline;
+    justify-content:space-between;
+    margin:30px 16px 14px;
+    padding-bottom:8px;
+    border-bottom:2px solid var(--purple-light);
+  }
+  .section-row h2{
+    font-family:var(--serif);
+    font-size:19px;
+    margin:0;
+    font-weight:700;
+    letter-spacing:.3px;
+    color:var(--ink);
+  }
+  .section-row .hint{
+    font-size:11.5px;
+    color:var(--purple-accent);
+    font-weight:700;
+  }
+
+  /* ---- accordion ---- */
+  .accordion{margin:0 16px;}
+  .acc-item{
+    background:#fff;
+    border:1px solid var(--line);
+    border-radius:16px;
+    margin-bottom:10px;
+    overflow:hidden;
+    transition:box-shadow .2s ease;
+  }
+  .acc-item.open{box-shadow:0 6px 18px rgba(217,102,47,.10);border-color:var(--purple-accent-2);}
+  .acc-head{
+    display:flex;
+    align-items:center;
+    gap:12px;
+    padding:15px 16px;
+    cursor:pointer;
+    user-select:none;
+  }
+  .acc-icon{
+    width:32px;height:32px;
+    border-radius:10px;
+    background:var(--lav-surface);
+    color:var(--purple-accent);
+    display:flex;align-items:center;justify-content:center;
+    font-size:12px;
+    font-weight:700;
+    font-family:var(--serif);
+    flex-shrink:0;
+  }
+  .acc-title{
+    flex:1;
+    font-size:15px;
+    font-weight:700;
+    color:var(--ink);
+  }
+  .acc-chev{
+    color:var(--purple-accent);
+    font-size:12px;
+    transition:transform .2s ease;
+  }
+  .acc-item.open .acc-chev{transform:rotate(180deg);}
+  .acc-body{
+    max-height:0;
+    overflow:hidden;
+    transition:max-height .25s ease;
+    padding:0 16px;
+  }
+  .acc-item.open .acc-body{
+    max-height:320px;
+    padding:0 16px 16px;
+  }
+  .acc-body ul{
+    margin:0;
+    padding-left:18px;
+    font-size:13.5px;
+    line-height:1.8;
+    color:#4a4550;
+  }
+
+  .cta{
+    margin:18px 16px 4px;
+    width:calc(100% - 32px);
+    border:none;
+    border-radius:14px;
+    padding:15px;
+    background:var(--purple-accent);
+    color:#fff;
+    font-size:15px;
+    font-weight:700;
+    letter-spacing:.5px;
+    cursor:pointer;
+    box-shadow:0 8px 18px rgba(217,102,47,.30);
+    transition:transform .12s ease, box-shadow .12s ease;
+  }
+  .cta:active{
+    transform:translate(0,1px);
+    box-shadow:0 4px 10px rgba(217,102,47,.28);
+  }
+
+  /* ---- calculator card ---- */
+  .calc-card{
+    margin:26px 16px 0;
+    background:#fdfbf8;
+    border:1px solid var(--line);
+    border-radius:18px;
+    padding:18px 16px 20px;
+  }
+  .field-label{
+    font-size:13px;
+    font-weight:700;
+    color:var(--ink);
+    margin:16px 0 8px;
+  }
+  .field-label:first-child{margin-top:0;}
+
+  .radio-card{
+    display:flex;
+    align-items:center;
+    gap:12px;
+    border:1.5px solid var(--line);
+    border-radius:14px;
+    padding:12px 14px;
+    margin-bottom:8px;
+    cursor:pointer;
+    background:#fff;
+    transition:all .15s ease;
+  }
+  .radio-card.active{
+    background:var(--lav-surface);
+    border-color:var(--purple-accent);
+  }
+  .radio-dot{
+    width:18px;height:18px;
+    border-radius:50%;
+    border:2px solid #d8cabb;
+    flex-shrink:0;
+    position:relative;
+  }
+  .radio-card.active .radio-dot{border-color:var(--purple-accent);background:var(--purple-accent);}
+  .radio-card.active .radio-dot::after{
+    content:"";
+    position:absolute;
+    inset:4px;
+    border-radius:50%;
+    background:#fff;
+  }
+  .radio-main{font-size:14.5px;font-weight:700;color:var(--ink);}
+  .radio-sub{font-size:12px;color:var(--ink-soft);margin-top:2px;}
+
+  .row2{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+
+  .num-input{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    border:1.5px solid var(--line);
+    border-radius:12px;
+    padding:10px 12px;
+    background:#fff;
+  }
+  .num-input:focus-within{border-color:var(--purple-accent);}
+  .num-input input{
+    border:none;outline:none;
+    font-size:18px;font-weight:700;
+    width:100%;
+    background:transparent;
+    color:var(--ink);
+    font-family:inherit;
+  }
+  .num-suffix{font-size:12px;color:var(--ink-soft);white-space:nowrap;margin-left:6px;}
+  .stepper{display:flex;flex-direction:column;gap:2px;margin-left:8px;}
+  .stepper button{
+    border:1px solid var(--line);background:var(--lav-surface);color:var(--purple-accent);
+    width:22px;height:16px;border-radius:4px;font-size:10px;cursor:pointer;
+    display:flex;align-items:center;justify-content:center;
+    line-height:1;
+  }
+
+  .toggle-group{
+    display:flex;
+    border:1.5px solid var(--line);
+    border-radius:12px;
+    overflow:hidden;
+    background:#fff;
+  }
+  .toggle-group button{
+    flex:1;
+    border:none;
+    border-left:1.5px solid var(--line);
+    background:transparent;
+    padding:11px 0;
+    font-size:14px;
+    font-weight:700;
+    color:var(--ink-soft);
+    cursor:pointer;
+  }
+  .toggle-group button:first-child{border-left:none;}
+  .toggle-group button.active{
+    background:var(--purple-accent);
+    color:#fff;
+  }
+
+  .cap-row{
+    display:flex;justify-content:space-between;align-items:center;
+    margin-top:6px;
+  }
+  .cap-note{font-size:11.5px;color:var(--ink-soft);}
+  .cap-apply{
+    font-size:12px;font-weight:700;color:var(--purple-accent);
+    background:none;border:none;cursor:pointer;
+    text-decoration:underline;
+  }
+
+  .slider-wrap{margin-top:6px;}
+  input[type=range]{
+    width:100%;
+    -webkit-appearance:none;
+    height:5px;
+    border-radius:3px;
+    background:var(--line);
+    accent-color:var(--purple-accent);
+  }
+  input[type=range]::-webkit-slider-thumb{
+    -webkit-appearance:none;
+    width:20px;height:20px;
+    border-radius:50%;
+    background:var(--purple-accent);
+    border:3px solid #fff;
+    box-shadow:0 2px 8px rgba(217,102,47,.4);
+    cursor:pointer;
+  }
+  .slider-ticks{
+    display:flex;justify-content:space-between;
+    font-size:11px;color:var(--ink-soft);
+    margin-top:6px;
+  }
+  .slider-note{font-size:12.5px;color:var(--ink-soft);margin-top:8px;}
+  .slider-note b{color:var(--purple-accent);}
+
+  /* ---- eligibility ---- */
+  .elig-banner{
+    margin:22px 16px 0;
+    background:var(--sage);
+    color:var(--sage-text);
+    text-align:center;
+    font-weight:700;
+    font-size:14.5px;
+    padding:13px;
+    border-radius:14px;
+    border:none;
+    transition:background .2s,color .2s;
+  }
+  .elig-banner.fail{
+    background:#fbe2e2;
+    color:#a04a4a;
+    border:none;
+  }
+  .elig-banner.pending{
+    background:#f1eee9;
+    color:#8a7c6f;
+    border:none;
+  }
+  .elig-list{margin:14px 16px 0;}
+  .elig-row{
+    display:flex;
+    gap:12px;
+    padding:12px 4px;
+    border-bottom:1px solid var(--line);
+  }
+  .elig-row:last-child{border-bottom:none;}
+  .elig-check{
+    width:23px;height:23px;border-radius:50%;
+    background:#e8f2e6;color:var(--ok);
+    display:flex;align-items:center;justify-content:center;
+    font-size:13px;flex-shrink:0;margin-top:1px;
+    font-weight:700;
+  }
+  .elig-check.no{background:#f8e6e6;color:#c1584f;}
+  .elig-main{font-size:14px;font-weight:700;color:var(--ink);}
+  .elig-sub{font-size:12.5px;color:var(--ink-soft);margin-top:2px;}
+
+  /* ---- result ---- */
+  .result-head{
+    display:flex;justify-content:space-between;align-items:baseline;
+    margin:26px 16px 10px;
+    padding-bottom:8px;
+    border-bottom:2px solid var(--purple-light);
+  }
+  .result-head h2{font-family:var(--serif);font-size:19px;margin:0;font-weight:700;color:var(--ink);}
+  .result-head span{font-size:11.5px;color:var(--ink-soft);}
+
+  .result-card{
+    margin:0 16px;
+    background:var(--lav-surface);
+    border:none;
+    border-radius:20px;
+    padding:24px 18px;
+    text-align:center;
+  }
+  .result-big{
+    font-family:var(--serif);
+    font-size:36px;
+    font-weight:700;
+    color:var(--purple-accent);
+    letter-spacing:.5px;
+  }
+  .result-cap{font-size:12.5px;color:#8a7566;margin-top:6px;}
+  .result-save{font-size:12.5px;color:#8a7566;margin-top:6px;}
+  .result-save b{color:var(--purple-accent);}
+
+  .result-split{
+    margin:12px 16px 0;
+    display:grid;grid-template-columns:1fr 1fr;gap:10px;
+  }
+  .split-card{
+    background:#fff;border:1px solid var(--line);
+    border-radius:14px;padding:14px;text-align:center;
+  }
+  .split-card .label{font-size:12px;color:var(--ink-soft);margin-bottom:6px;}
+  .split-card .val{font-family:var(--serif);font-size:18px;font-weight:700;color:var(--ink);}
+
+  .timeline-card{
+    margin:16px 16px 0;
+    background:#fff;border:1px solid var(--line);
+    border-radius:16px;padding:16px 14px 10px;
+  }
+  .timeline-card h3{font-size:14px;margin:0 0 14px;font-weight:800;color:var(--ink);}
+  .bars{display:flex;align-items:flex-end;justify-content:space-between;height:120px;gap:8px;}
+  .bar-col{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;height:100%;}
+  .bar-rate{font-size:11.5px;font-weight:800;margin-bottom:6px;color:var(--ink);}
+  .bar-fill{width:100%;border-radius:6px 6px 0 0;background:var(--purple-accent-2);}
+  .bar-fill.last{background:#cbbfae;}
+  .bar-yr{font-size:11px;color:var(--ink-soft);margin-top:6px;}
+
+  /* ---- reference tables ---- */
+  .ref-title{
+    margin:30px 16px 10px;
+    font-family:var(--serif);
+    font-size:19px;font-weight:700;
+    color:var(--ink);
+  }
+  .ref-card{
+    margin:0 16px 14px;
+    background:#fff;border:1px solid var(--line);
+    border-radius:16px;padding:16px;
+  }
+  .ref-card h4{font-size:14px;margin:0 0 12px;font-weight:800;color:var(--purple-accent);}
+  table{width:100%;border-collapse:collapse;font-size:13px;}
+  table th{
+    text-align:left;color:var(--ink-soft);font-weight:700;
+    padding-bottom:8px;font-size:12px;border-bottom:1.5px solid var(--purple-light);
+  }
+  table td{padding:9px 0;border-bottom:1px solid #f5efe6;color:var(--ink);}
+  table tr:last-child td{border-bottom:none;}
+
+  /* ---- sale profit/loss calculator ---- */
+  .opt-check{
+    display:flex;
+    align-items:flex-start;
+    gap:12px;
+    padding:14px 4px;
+    border-bottom:1px solid var(--line);
+    cursor:pointer;
+  }
+  .opt-check:last-of-type{border-bottom:none;}
+  .opt-check input{
+    position:absolute;opacity:0;width:0;height:0;
+  }
+  .opt-check-box{
+    width:22px;height:22px;border-radius:6px;
+    background:var(--purple-accent);color:#fff;
+    font-size:11px;font-weight:800;
+    display:flex;align-items:center;justify-content:center;
+    flex-shrink:0;margin-top:1px;
+    position:relative;
+  }
+  .opt-check input:checked ~ .opt-check-box::after{
+    content:"✓";
+    position:absolute;inset:0;
+    display:flex;align-items:center;justify-content:center;
+    background:var(--ok);border-radius:6px;
+  }
+  .opt-check-text{font-size:14px;font-weight:700;line-height:1.5;color:var(--ink);}
+  .opt-check-text small{font-weight:400;color:var(--ink-soft);font-size:12px;}
+  .opt-note{
+    font-size:12px;line-height:1.7;color:#8a7a6b;
+    background:var(--lav-surface);
+    border-radius:10px;
+    border-left:3px solid var(--purple-accent-2);
+    padding:10px 12px;
+    margin:-4px 0 4px;
+  }
+
+  .sale-hero{
+    margin:0 16px;
+    background:#eef5ea;
+    border:none;
+    border-radius:20px;
+    padding:20px 18px;
+  }
+  .sale-hero-row{display:flex;justify-content:space-between;align-items:flex-start;gap:10px;}
+  .sale-hero-label{font-size:12px;color:#5a7a56;font-weight:700;}
+  .sale-hero-big{font-family:var(--serif);font-size:29px;font-weight:700;color:#48884a;margin-top:4px;}
+  .sale-hero-roi{font-family:var(--serif);font-size:23px;font-weight:700;color:#48884a;margin-top:4px;}
+  .sale-hero-sub{font-size:11px;color:#84796e;margin-top:6px;}
+
+  .sale-keynum-grid{
+    margin:12px 16px 0;
+    display:grid;grid-template-columns:1fr 1fr;gap:10px;
+  }
+  .sale-keynum{
+    background:#fff;border:1px solid var(--line);
+    border-radius:14px;padding:13px 14px;
+  }
+  .sale-keynum.highlight{background:#eaf5e8;border-color:#bfe0bd;}
+  .sale-keynum .label{font-size:11.5px;color:var(--ink-soft);margin-bottom:4px;}
+  .sale-keynum .val{font-family:var(--serif);font-size:18px;font-weight:700;color:var(--ink);}
+  .sale-keynum.highlight .val{color:#48884a;}
+  .sale-keynum .sub{font-size:11px;color:var(--ink-soft);margin-top:3px;}
+
+  .ledger-card{
+    margin:0 16px;background:#fff;border:1px solid var(--line);
+    border-radius:18px;padding:16px 16px 20px;
+  }
+  .ledger-group{
+    font-size:11.5px;font-weight:800;color:var(--purple-accent);
+    margin:16px 0 4px;text-transform:uppercase;letter-spacing:.4px;
+  }
+  .ledger-group:first-of-type{margin-top:6px;}
+  .ledger-row{
+    display:flex;justify-content:space-between;align-items:center;
+    font-size:13.5px;padding:8px 0;
+    border-bottom:1px solid #f5efe6;
+    color:var(--ink);
+  }
+  .ledger-row:last-child{border-bottom:none;}
+  .ledger-row.main{font-size:15px;font-weight:800;}
+  .ledger-row.pos span:last-child{color:#48884a;}
+  .ledger-row .neg{color:#c1584f;}
+  .ledger-row .tag{
+    display:inline-block;font-size:10.5px;font-weight:700;
+    background:var(--lav-surface);color:var(--purple-accent);
+    border-radius:999px;padding:2px 8px;margin-left:6px;
+  }
+  .ledger-row .tag.warn{background:#f8e6e6;color:#c1584f;}
+
+  .disclaimer-box{
+    margin:14px 16px 0;
+    font-size:11.5px;line-height:1.7;color:var(--ink-soft);
+    background:#f6f1e9;border-radius:12px;border-left:3px solid var(--purple-accent-2);padding:12px 14px;
+  }
+
+  .hbar-card{
+    margin:0 16px;background:#fff;border:1px solid var(--line);
+    border-radius:18px;padding:18px 16px;
+  }
+  .hbar-row{margin-bottom:16px;}
+  .hbar-row:last-child{margin-bottom:0;}
+  .hbar-label{
+    display:flex;justify-content:space-between;
+    font-size:12.5px;font-weight:700;margin-bottom:6px;
+    color:var(--ink);
+  }
+  .hbar-track{background:#f5efe6;border-radius:8px;height:14px;overflow:hidden;}
+  .hbar-fill{height:100%;border-radius:8px;}
+
+  /* ---- bottom nav ---- */
+  .bottomnav{
+    position:fixed;
+    left:50%;
+    transform:translateX(-50%);
+    bottom:0;
+    width:100%;
+    max-width:430px;
+    background:#fff;
+    border-top:1px solid var(--line);
+    display:flex;
+    padding:8px 2px calc(18px + env(safe-area-inset-bottom));
+    box-shadow:0 -4px 16px rgba(217,102,47,.08);
+  }
+  .nav-item{
+    flex:1;
+    min-width:0;
+    display:flex;flex-direction:column;align-items:center;gap:4px;
+    font-size:10px;color:#a89684;
+    background:none;border:none;cursor:pointer;
+    font-family:inherit;
+    padding:6px 2px;
+    white-space:nowrap;
+    border-radius:12px;
+  }
+  .nav-item.active{color:var(--purple-accent);font-weight:700;background:var(--lav-surface);}
+  .nav-item .ic{font-size:17px;font-weight:700;line-height:1;}
+
+  /* ---- contact sheet ---- */
+  .sheet-overlay{
+    position:fixed;inset:0;
+    background:rgba(74,58,46,.45);
+    display:none;
+    align-items:flex-end;
+    justify-content:center;
+    z-index:50;
+  }
+  .sheet-overlay.show{display:flex;}
+  .sheet{
+    width:100%;max-width:430px;
+    background:#fff;
+    border-radius:24px 24px 0 0;
+    border-top:none;
+    padding:10px 20px 28px;
+    transform:translateY(100%);
+    transition:transform .25s ease;
+  }
+  .sheet-overlay.show .sheet{transform:translateY(0);}
+  .sheet-handle{
+    width:40px;height:4px;border-radius:2px;
+    background:var(--line);margin:6px auto 16px;
+  }
+  .sheet h3{font-family:var(--serif);font-size:18px;margin:0 0 4px;font-weight:700;color:var(--ink);}
+  .sheet .sub{font-size:12.5px;color:var(--ink-soft);margin-bottom:16px;}
+  .contact-row{
+    display:flex;align-items:center;gap:12px;
+    padding:13px 6px;border-bottom:1px solid var(--line);
+    border-radius:12px;
+  }
+  .contact-row:last-of-type{border-bottom:none;}
+  .contact-row:active{background:var(--lav-surface);}
+  .contact-ic{
+    width:38px;height:38px;border-radius:11px;
+    background:var(--purple-accent);color:#fff;
+    display:flex;align-items:center;justify-content:center;font-size:10.5px;font-weight:800;letter-spacing:.3px;flex-shrink:0;
+  }
+  .contact-main{font-size:14px;font-weight:700;color:var(--ink);}
+  .contact-sub{font-size:12px;color:var(--ink-soft);margin-top:2px;}
+  .sheet-close{
+    width:100%;margin-top:14px;
+    border:1.5px solid var(--line);border-radius:12px;padding:13px;
+    background:#fff;color:var(--ink);
+    font-weight:700;font-size:14px;cursor:pointer;font-family:inherit;
+  }
+
+  a{color:inherit;}
+</style>
+</head>
+<body>
+<div class="app" id="app">
+
+  <div class="statusbar"></div>
+
+  <!-- HERO -->
+  <div class="hero">
+    <span class="badge">115.8.1 正式上路</span>
+    <h1>青安貸款 3.0</h1>
+    <p>青年安心成家購屋優惠貸款，加碼挺自住、加碼助婚育。<br>四大方向精進，陪你安心成家。</p>
+    <div class="period">申辦期間 <b>115/08/01 － 118/07/31</b></div>
+  </div>
+
+  <div class="stats">
+    <div class="stat"><div class="num">6<small>年</small></div><div class="label">最長補貼期間</div></div>
+    <div class="stat"><div class="num">1.775<small>%</small></div><div class="label">起始補貼利率</div></div>
+    <div class="stat"><div class="num">1500<small>萬</small></div><div class="label">育兒家庭上限</div></div>
+  </div>
+
+  <!-- ACCORDION -->
+  <div class="section-row">
+    <h2>四大精進方向</h2>
+    <span class="hint">點一下看細節</span>
+  </div>
+  <div class="accordion" id="accordion">
+    <div class="acc-item open" data-idx="0">
+      <div class="acc-head">
+        <div class="acc-icon">01</div>
+        <div class="acc-title">精準對象</div>
+        <div class="acc-chev">▾</div>
+      </div>
+      <div class="acc-body">
+        <ul>
+          <li>申貸時未滿 50 歲，且「年齡＋貸款年限」合計不超過 80</li>
+          <li>借款人本人年所得總額不超過 200 萬元</li>
+          <li>房屋總價／鑑價不超過地區上限（台北市 3500 萬／新北・新竹 2500 萬／其他 2000 萬）</li>
+        </ul>
+      </div>
+    </div>
+    <div class="acc-item" data-idx="1">
+      <div class="acc-head">
+        <div class="acc-icon">02</div>
+        <div class="acc-title">快樂婚育</div>
+        <div class="acc-chev">▾</div>
+      </div>
+      <div class="acc-body">
+        <ul>
+          <li>新婚 2 年內家庭，貸款額度上限提高至 1,200 萬元</li>
+          <li>育有未成年子女家庭，貸款額度上限提高至 1,500 萬元</li>
+          <li>子女數愈多，未來加碼方向將持續精進</li>
+        </ul>
+      </div>
+    </div>
+    <div class="acc-item" data-idx="2">
+      <div class="acc-head">
+        <div class="acc-icon">03</div>
+        <div class="acc-title">減輕負擔</div>
+        <div class="acc-chev">▾</div>
+      </div>
+      <div class="acc-body">
+        <ul>
+          <li>撥貸起 3 年內享最低補貼利率 1.775%</li>
+          <li>可申請最長 5 年寬限期，期間僅繳息不還本</li>
+          <li>採一段式機動利率，逐年階梯調整，負擔可預期</li>
+        </ul>
+      </div>
+    </div>
+    <div class="acc-item" data-idx="3">
+      <div class="acc-head">
+        <div class="acc-icon">04</div>
+        <div class="acc-title">完善機制</div>
+        <div class="acc-chev">▾</div>
+      </div>
+      <div class="acc-body">
+        <ul>
+          <li>線上資格試算，申貸前先確認符合條件</li>
+          <li>多家公股銀行同步受理，就近臨櫃申辦</li>
+          <li>提供專人客服諮詢，申辦流程全程協助</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <button class="cta" id="ctaBtn">開始試算我的方案</button>
+
+  <!-- CALCULATOR -->
+  <div class="section-row" style="margin-top:34px;">
+    <h2>資格 &amp; 貸款試算</h2>
+  </div>
+
+  <div class="calc-card" id="calcCard">
+
+    <div class="field-label">房屋所在地區</div>
+    <div id="regionGroup">
+      <div class="radio-card" data-val="taipei" data-cap="3500">
+        <div class="radio-dot"></div>
+        <div><div class="radio-main">台北</div><div class="radio-sub">總價上限 3,500 萬</div></div>
+      </div>
+      <div class="radio-card" data-val="newzhu" data-cap="2500">
+        <div class="radio-dot"></div>
+        <div><div class="radio-main">新北・新竹縣市</div><div class="radio-sub">總價上限 2,500 萬</div></div>
+      </div>
+      <div class="radio-card" data-val="other" data-cap="2000">
+        <div class="radio-dot"></div>
+        <div><div class="radio-main">其他縣市（含雲林）</div><div class="radio-sub">總價上限 2,000 萬</div></div>
+      </div>
+    </div>
+
+    <div class="field-label">婚育狀況</div>
+    <div id="familyGroup">
+      <div class="radio-card" data-val="normal" data-cap="1000">
+        <div class="radio-dot"></div>
+        <div><div class="radio-main">一般</div><div class="radio-sub">額度上限 1,000 萬</div></div>
+      </div>
+      <div class="radio-card" data-val="newlywed" data-cap="1200">
+        <div class="radio-dot"></div>
+        <div><div class="radio-main">新婚 2 年內</div><div class="radio-sub">額度上限 1,200 萬</div></div>
+      </div>
+      <div class="radio-card" data-val="kids" data-cap="1500">
+        <div class="radio-dot"></div>
+        <div><div class="radio-main">育有未成年子女</div><div class="radio-sub">額度上限 1,500 萬</div></div>
+      </div>
+    </div>
+
+    <div class="row2">
+      <div>
+        <div class="field-label">申貸年齡</div>
+        <div class="num-input">
+          <input type="number" id="ageInput" placeholder="請輸入年齡">
+          <span class="num-suffix">歲</span>
+          <div class="stepper">
+            <button data-target="ageInput" data-dir="1">▲</button>
+            <button data-target="ageInput" data-dir="-1">▼</button>
+          </div>
+        </div>
+      </div>
+      <div>
+        <div class="field-label">貸款年限</div>
+        <div class="toggle-group" id="termGroup">
+          <button data-val="20">20年</button>
+          <button data-val="30">30年</button>
+          <button data-val="40">40年</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="field-label">借款人本人年所得</div>
+    <div class="num-input">
+      <input type="number" id="incomeInput" placeholder="請輸入年所得">
+      <span class="num-suffix">萬元／年</span>
+      <div class="stepper">
+        <button data-target="incomeInput" data-dir="5">▲</button>
+        <button data-target="incomeInput" data-dir="-5">▼</button>
+      </div>
+    </div>
+
+    <div class="field-label">房屋總價（或鑑價）</div>
+    <div class="num-input">
+      <input type="number" id="priceInput" placeholder="請輸入房屋總價">
+      <span class="num-suffix">萬元</span>
+      <div class="stepper">
+        <button data-target="priceInput" data-dir="50">▲</button>
+        <button data-target="priceInput" data-dir="-50">▼</button>
+      </div>
+    </div>
+
+    <div class="field-label">貸款金額</div>
+    <div class="num-input">
+      <input type="number" id="loanInput" placeholder="請輸入貸款金額">
+      <span class="num-suffix">萬元</span>
+      <div class="stepper">
+        <button data-target="loanInput" data-dir="10">▲</button>
+        <button data-target="loanInput" data-dir="-10">▼</button>
+      </div>
+    </div>
+    <div class="cap-row">
+      <span class="cap-note" id="capNote">請先選擇婚育狀況</span>
+      <button class="cap-apply" id="capApply">帶入上限</button>
+    </div>
+
+    <div class="field-label">寬限期（只繳息不還本）</div>
+    <div class="slider-wrap">
+      <input type="range" id="graceInput" min="0" max="5" value="0" step="1">
+      <div class="slider-ticks"><span>0</span><span>1</span><span>2</span><span>3</span><span>4</span><span>5 年</span></div>
+      <div class="slider-note">已選擇 <b id="graceLabel">0</b> 年寬限期，期間僅繳利息</div>
+    </div>
+  </div>
+
+  <!-- ELIGIBILITY -->
+  <div class="elig-banner" id="eligBanner">符合申貸資格</div>
+  <div class="elig-list" id="eligList"></div>
+
+  <!-- RESULT -->
+  <div class="result-head">
+    <h2>試算結果</h2>
+    <span>等額本息・僅供參考</span>
+  </div>
+  <div class="result-card">
+    <div class="result-big" id="resultBig">$34,413</div>
+    <div class="result-cap" id="resultCap">前 3 年每月應繳（補貼後 1.775%）</div>
+    <div class="result-save">6 年累計省下利息約 <b id="resultSave">209,270</b> 元</div>
+  </div>
+  <div class="result-split">
+    <div class="split-card">
+      <div class="label">第 7 年起月付金</div>
+      <div class="val" id="pmtYear7">$36,484</div>
+    </div>
+    <div class="split-card">
+      <div class="label">若無補貼原始月付金</div>
+      <div class="val" id="pmtNoSub">$36,818</div>
+    </div>
+  </div>
+
+  <div class="timeline-card">
+    <h3>7 年利率時間軸</h3>
+    <div class="bars" id="bars"></div>
+  </div>
+
+  <!-- REFERENCE TABLES -->
+  <div class="ref-title">資格與利率總覽</div>
+
+  <div class="ref-card">
+    <h4>申貸資格上限</h4>
+    <table>
+      <tr><th>項目</th><th>規定</th></tr>
+      <tr><td>申貸年齡</td><td>未滿 50 歲</td></tr>
+      <tr><td>年齡＋年限</td><td>合計 ≤ 80</td></tr>
+      <tr><td>本人年所得</td><td>≤ 200 萬元</td></tr>
+    </table>
+  </div>
+
+  <div class="ref-card">
+    <h4>房屋總價上限</h4>
+    <table>
+      <tr><th>地區</th><th>上限</th></tr>
+      <tr><td>台北市</td><td>3,500 萬元</td></tr>
+      <tr><td>新北市・新竹縣市</td><td>2,500 萬元</td></tr>
+      <tr><td>其他縣市（含雲林）</td><td>2,000 萬元</td></tr>
+    </table>
+  </div>
+
+  <div class="ref-card">
+    <h4>貸款額度上限</h4>
+    <table>
+      <tr><th>對象</th><th>額度</th></tr>
+      <tr><td>一般家庭</td><td>1,000 萬元</td></tr>
+      <tr><td>新婚家庭（2年內）</td><td>1,200 萬元</td></tr>
+      <tr><td>育有未成年子女</td><td>1,500 萬元</td></tr>
+    </table>
+  </div>
+
+  <div class="ref-card">
+    <h4>利息補貼時間軸（一段式機動利率）</h4>
+    <table>
+      <tr><th>期間</th><th>補貼後利率</th></tr>
+      <tr><td>撥貸起 3 年內</td><td>1.775%</td></tr>
+      <tr><td>期滿後第 1 年</td><td>1.900%</td></tr>
+      <tr><td>期滿後第 2 年</td><td>2.025%</td></tr>
+      <tr><td>期滿後第 3 年</td><td>2.150%</td></tr>
+      <tr><td>期滿後第 4 年起</td><td>2.275%</td></tr>
+    </table>
+  </div>
+
+  <div style="height:10px;"></div>
+
+  <!-- SALE PROFIT/LOSS CALCULATOR -->
+  <div class="section-row" id="saleSection" style="margin-top:8px;">
+    <h2>售屋損益試算</h2>
+    <span class="hint">房地合一稅 2.0</span>
+  </div>
+
+  <div class="calc-card">
+    <div class="field-label" style="margin-top:0;">預計成交總價（萬元）</div>
+    <div class="num-input">
+      <input type="number" id="saleSellPrice" placeholder="例如 1500">
+      <span class="num-suffix">萬元</span>
+      <div class="stepper">
+        <button data-target="saleSellPrice" data-dir="50">▲</button>
+        <button data-target="saleSellPrice" data-dir="-50">▼</button>
+      </div>
+    </div>
+
+    <div class="field-label">原始購入總價（萬元）</div>
+    <div class="num-input">
+      <input type="number" id="saleBuyPrice" placeholder="例如 900">
+      <span class="num-suffix">萬元</span>
+      <div class="stepper">
+        <button data-target="saleBuyPrice" data-dir="50">▲</button>
+        <button data-target="saleBuyPrice" data-dir="-50">▼</button>
+      </div>
+    </div>
+
+    <div class="row2">
+      <div>
+        <div class="field-label">購入日期</div>
+        <div class="num-input"><input type="date" id="saleBuyDate"></div>
+      </div>
+      <div>
+        <div class="field-label">預計售出日期</div>
+        <div class="num-input"><input type="date" id="saleSellDate"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="calc-card">
+    <div class="field-label" style="margin-top:0;color:var(--purple-accent);">購置成本</div>
+
+    <div class="row2">
+      <div>
+        <div class="field-label">買屋仲介費（萬元）</div>
+        <div class="num-input"><input type="number" id="saleBuyAgencyFee" placeholder="0"></div>
+      </div>
+      <div>
+        <div class="field-label">裝修費用（萬元）</div>
+        <div class="num-input"><input type="number" id="saleRenovationFee" placeholder="0"></div>
+      </div>
+    </div>
+    <div class="cap-note">依您當時仲介費率為準</div>
+
+    <div class="field-label">其他費用（萬元）</div>
+    <div class="num-input"><input type="number" id="saleOtherFee" placeholder="0"></div>
+
+    <div class="field-label">土地漲價總數額（萬元）</div>
+    <div class="num-input"><input type="number" id="saleLandIncrease" placeholder="0"></div>
+    <div class="cap-note">土地增值稅的稅基＝土地面積 ×（現在公告現值－買入時公告現值），不列入房地合一稅計算範圍</div>
+  </div>
+
+  <div class="calc-card">
+    <div class="field-label" style="margin-top:0;color:var(--purple-accent);">出售費用</div>
+
+    <div class="field-label">仲介費率（%）</div>
+    <div class="num-input">
+      <input type="number" id="saleAgencyRate" placeholder="例如 4" step="0.1">
+      <span class="num-suffix">%</span>
+    </div>
+    <div class="cap-note">以成交總價計算</div>
+
+    <div class="row2">
+      <div>
+        <div class="field-label">代書相關費用（萬元）</div>
+        <div class="num-input"><input type="number" id="saleNotaryFee" placeholder="0"></div>
+      </div>
+      <div>
+        <div class="field-label">土地增值稅（萬元）</div>
+        <div class="num-input"><input type="number" id="saleLandValueTax" placeholder="0"></div>
+      </div>
+    </div>
+    <div class="cap-note">契約費、塗銷費、履約保證費；土地增值稅不列入房地合一稅計算範圍</div>
+  </div>
+
+  <div class="calc-card">
+    <div class="field-label" style="margin-top:0;color:var(--purple-accent);">稅務優惠條件</div>
+
+    <label class="opt-check">
+      <input type="checkbox" id="saleSelfUse">
+      <span class="opt-check-box">1</span>
+      <span class="opt-check-text">自住優惠<br><small>實際居住滿 6 年（本人／配偶／未成年子女設籍，無出租或供營業使用）</small></span>
+    </label>
+    <div class="opt-note" id="selfUseNote">須以實際居住日計算，裝潢期間尚未入住、旅居國外期間，請務必扣除後再評估是否達 6 年。優惠內容：課稅所得 400 萬元以內免稅；超過部分適用 10% 優惠稅率。</div>
+
+    <label class="opt-check">
+      <input type="checkbox" id="saleRepurchase">
+      <span class="opt-check-box">2</span>
+      <span class="opt-check-text">重購退稅<br><small>預計在出售前後兩年內購買新屋，申請房地合一稅退稅</small></span>
+    </label>
+    <div class="opt-note" id="repurchaseNote">新屋總價 ≥ 舊屋售價 → 全額退稅；新屋總價 &lt; 舊屋售價 → 按比例退稅。購買日需在本次出售日的前後 2 年內，且新屋須為本人、配偶或未成年子女自住使用。</div>
+
+    <button class="cta" id="saleCalcBtn" style="margin:18px 0 0;width:100%;">開始試算 →</button>
+  </div>
+
+  <!-- RESULT -->
+  <div id="saleResultWrap" style="display:none;">
+    <div class="section-row" style="margin-top:26px;"><h2>試算結果</h2></div>
+
+    <div class="sale-hero">
+      <div class="sale-hero-row">
+        <div>
+          <div class="sale-hero-label">屋主實際獲利</div>
+          <div class="sale-hero-big" id="saleProfitBig">0 萬</div>
+          <div class="sale-hero-sub" id="saleCostSub">買入總成本 0萬，扣除所有稅費後</div>
+        </div>
+        <div style="text-align:right;">
+          <div class="sale-hero-label">投資報酬率</div>
+          <div class="sale-hero-roi" id="saleRoiBig">+0%</div>
+          <div class="sale-hero-sub" id="saleHoldSub">持有 0 年 0 個月（預計）</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="sale-keynum-grid">
+      <div class="sale-keynum">
+        <div class="label">預計成交總價</div>
+        <div class="val" id="kSellPrice">0 萬</div>
+      </div>
+      <div class="sale-keynum">
+        <div class="label">全部稅費支出</div>
+        <div class="val" id="kTaxFees">0 萬</div>
+        <div class="sub" id="kTaxFeesPct">佔成交價 0%</div>
+      </div>
+      <div class="sale-keynum highlight">
+        <div class="label">屋主實際獲利</div>
+        <div class="val" id="kProfit">+0 萬</div>
+        <div class="sub" id="kRoi">ROI +0%</div>
+      </div>
+      <div class="sale-keynum">
+        <div class="label">房地合一稅率</div>
+        <div class="val" id="kRate">0%</div>
+        <div class="sub" id="kRateSub">持有 0 年</div>
+      </div>
+    </div>
+
+    <div class="section-row" style="margin-top:26px;"><h2>完整損益明細</h2></div>
+    <div class="ledger-card">
+      <div class="ledger-row main"><span>預計成交總價</span><span id="lSellPrice">1,500萬</span></div>
+
+      <div class="ledger-group">購置成本</div>
+      <div class="ledger-row"><span>原始購入價格</span><span class="neg" id="lBuyPrice">－900萬</span></div>
+      <div class="ledger-row" id="lBuyAgencyRow"><span>買屋仲介費</span><span class="neg" id="lBuyAgency">－30萬</span></div>
+      <div class="ledger-row" id="lRenovationRow" style="display:none;"><span>裝修費用</span><span class="neg" id="lRenovation">－0萬</span></div>
+      <div class="ledger-row" id="lOtherFeeRow" style="display:none;"><span>其他費用</span><span class="neg" id="lOtherFee">－0萬</span></div>
+
+      <div class="ledger-group">出售費用</div>
+      <div class="ledger-row"><span>仲介服務費 <span class="tag" id="lAgencyRateTag">4%</span></span><span class="neg" id="lSellAgency">－60萬</span></div>
+      <div class="ledger-row" id="lNotaryRow" style="display:none;"><span>代書相關費用</span><span class="neg" id="lNotary">－0萬</span></div>
+      <div class="ledger-row" id="lLandTaxRow" style="display:none;"><span>土地增值稅</span><span class="neg" id="lLandTax">－0萬</span></div>
+
+      <div class="ledger-group">稅務</div>
+      <div class="ledger-row"><span>課稅所得（房地合一）</span><span id="lTaxable">510萬</span></div>
+      <div class="ledger-row"><span>房地合一稅 <span class="tag warn" id="lRateTag">持有≤2年 45%</span></span><span class="neg" id="lHouseLandTax">－229.5萬</span></div>
+
+      <div class="ledger-row main" style="border-top:1.5px solid var(--line);margin-top:6px;padding-top:14px;"><span>屋主實拿現金</span><span id="lNetCash">1,210.5萬</span></div>
+      <div class="ledger-row main pos"><span>實際獲利（扣除買入總成本）</span><span id="lProfit">+280.5萬</span></div>
+    </div>
+
+    <div class="disclaimer-box">本試算採房地合一稅 2.0，適用 2021 年 7 月 1 日後取得之房地。土地增值稅為獨立稅目，不列入房地合一稅課稅所得計算範圍。實際稅額請洽代書或稅務人員確認，本工具僅供參考，不構成法律或稅務建議。</div>
+
+    <div class="section-row" style="margin-top:26px;"><h2>各項支出分布</h2></div>
+    <div class="hbar-card" id="hbarCard"></div>
+  </div>
+
+  <div class="calc-card" style="text-align:center;margin-top:26px;">
+    <div class="field-label" style="text-align:center;margin-top:0;">需要更詳細的個案試算或買賣規劃？</div>
+    <div style="font-size:12.5px;color:var(--ink-soft);margin-bottom:14px;">稅務法令多變，實際應納稅額需視合法憑證與個案條件而定，歡迎直接加 LINE 諮詢。</div>
+    <a href="https://lin.ee/ac6d5Oc" target="_blank" rel="noopener" class="cta" style="display:block;text-decoration:none;box-sizing:border-box;">加 LINE 免費一對一諮詢 →</a>
+  </div>
+
+  <div style="height:10px;"></div>
+</div>
+
+<div class="bottomnav" id="bottomnav">
+  <button class="nav-item active" data-nav="home"><span class="ic">⌂</span>首頁</button>
+  <button class="nav-item" data-nav="calc"><span class="ic">▤</span>貸款試算</button>
+  <button class="nav-item" data-nav="elig"><span class="ic">◎</span>資格</button>
+  <button class="nav-item" data-nav="sale"><span class="ic">$</span>售屋損益試算</button>
+  <button class="nav-item" data-nav="contact"><span class="ic">@</span>聯絡</button>
+</div>
+
+<div class="sheet-overlay" id="contactOverlay">
+  <div class="sheet">
+    <div class="sheet-handle"></div>
+    <h3>聯絡我們</h3>
+    <div class="sub">申辦期間 115/08/01－118/07/31，如有疑問歡迎與我們聯繫</div>
+    <a class="contact-row" href="tel:0989930638" style="text-decoration:none;color:inherit;">
+      <div class="contact-ic contact-tap">TEL</div>
+      <div>
+        <div class="contact-main">客服專線 0989-930-638</div>
+        <div class="contact-sub">點一下直接撥打，週一至週日 08:00－22:00</div>
+      </div>
+    </a>
+    <a class="contact-row" href="https://lin.ee/ac6d5Oc" target="_blank" rel="noopener" style="text-decoration:none;color:inherit;">
+      <div class="contact-ic contact-tap">L</div>
+      <div>
+        <div class="contact-main">官方 LINE 諮詢</div>
+        <div class="contact-sub">lin.ee/ac6d5Oc，點一下立即加好友</div>
+      </div>
+    </a>
+    <a class="contact-row" href="https://www.591.com.tw/broker43912" target="_blank" rel="noopener" style="text-decoration:none;color:inherit;">
+      <div class="contact-ic contact-tap">591</div>
+      <div>
+        <div class="contact-main">熱賣好屋推薦</div>
+        <div class="contact-sub">591.com.tw／broker43912，點一下立即瀏覽</div>
+      </div>
+    </a>
+    <button class="sheet-close" id="closeContact">關閉</button>
+  </div>
+</div>
+
+<script>
+(function(){
+  // ---------- accordion ----------
+  document.querySelectorAll('.acc-head').forEach(head=>{
+    head.addEventListener('click',()=>{
+      head.parentElement.classList.toggle('open');
+    });
+  });
+
+  document.getElementById('ctaBtn').addEventListener('click',()=>{
+    setActiveNav('calc');
+    document.getElementById('calcCard').scrollIntoView({behavior:'smooth', block:'start'});
+  });
+
+  // ---------- bottom nav ----------
+  const navTargets = {
+    home:  ()=> document.getElementById('app').scrollIntoView({behavior:'smooth', block:'start'}),
+    calc:  ()=> document.getElementById('calcCard').scrollIntoView({behavior:'smooth', block:'start'}),
+    elig:  ()=> document.getElementById('eligBanner').scrollIntoView({behavior:'smooth', block:'start'}),
+    sale:  ()=> document.getElementById('saleSection').scrollIntoView({behavior:'smooth', block:'start'}),
+    contact: ()=> openContact()
+  };
+
+  function setActiveNav(key){
+    document.querySelectorAll('.nav-item').forEach(btn=>{
+      btn.classList.toggle('active', btn.dataset.nav===key);
+    });
+  }
+
+  document.querySelectorAll('.nav-item').forEach(btn=>{
+    btn.addEventListener('click',()=>{
+      const key = btn.dataset.nav;
+      if(key!=='contact') setActiveNav(key);
+      const fn = navTargets[key];
+      if(fn) fn();
+    });
+  });
+
+  const contactOverlay = document.getElementById('contactOverlay');
+  function openContact(){
+    contactOverlay.classList.add('show');
+  }
+  function closeContact(){
+    contactOverlay.classList.remove('show');
+  }
+  document.getElementById('closeContact').addEventListener('click', closeContact);
+  contactOverlay.addEventListener('click', (e)=>{
+    if(e.target === contactOverlay) closeContact();
+  });
+
+  // keep nav highlighted state in sync while user scrolls manually
+  const sectionMap = [
+    {id:'app', key:'home'},
+    {id:'calcCard', key:'calc'},
+    {id:'eligBanner', key:'elig'},
+    {id:'saleSection', key:'sale'}
+  ];
+  let scrollTicking = false;
+  window.addEventListener('scroll', ()=>{
+    if(scrollTicking) return;
+    scrollTicking = true;
+    requestAnimationFrame(()=>{
+      const y = window.scrollY + 120;
+      let current = 'home';
+      sectionMap.forEach(s=>{
+        const el = document.getElementById(s.id);
+        if(el && el.offsetTop <= y) current = s.key;
+      });
+      setActiveNav(current);
+      scrollTicking = false;
+    });
+  });
+
+  // ---------- state ----------
+  const state = {
+    region:null, regionCap:0,
+    family:null, familyCap:0,
+    age:0, term:0, income:0, price:0, loan:0, grace:0
+  };
+
+  function selectGroup(groupId, key, capKey){
+    const group = document.getElementById(groupId);
+    group.querySelectorAll('.radio-card').forEach(card=>{
+      card.addEventListener('click',()=>{
+        group.querySelectorAll('.radio-card').forEach(c=>c.classList.remove('active'));
+        card.classList.add('active');
+        state[key] = card.dataset.val;
+        state[capKey] = parseInt(card.dataset.cap,10);
+        render();
+      });
+    });
+  }
+  selectGroup('regionGroup','region','regionCap');
+  selectGroup('familyGroup','family','familyCap');
+
+  document.getElementById('termGroup').querySelectorAll('button').forEach(btn=>{
+    btn.addEventListener('click',()=>{
+      document.getElementById('termGroup').querySelectorAll('button').forEach(b=>b.classList.remove('active'));
+      btn.classList.add('active');
+      state.term = parseInt(btn.dataset.val,10);
+      render();
+    });
+  });
+
+  function bindNumber(id, key, min, max){
+    const el = document.getElementById(id);
+    el.addEventListener('input',()=>{
+      let v = parseFloat(el.value);
+      if(isNaN(v)) v = 0;
+      state[key] = v;
+      render();
+    });
+  }
+  bindNumber('ageInput','age');
+  bindNumber('incomeInput','income');
+  bindNumber('priceInput','price');
+  bindNumber('loanInput','loan');
+
+  document.querySelectorAll('.stepper button').forEach(btn=>{
+    btn.addEventListener('click',()=>{
+      const targetId = btn.dataset.target;
+      const dir = parseInt(btn.dataset.dir,10);
+      const input = document.getElementById(targetId);
+      let v = parseFloat(input.value) || 0;
+      v += dir;
+      if(v<0) v=0;
+      input.value = v;
+      const keyMap = {ageInput:'age',incomeInput:'income',priceInput:'price',loanInput:'loan'};
+      if(keyMap[targetId]){
+        state[keyMap[targetId]] = v;
+        render();
+      }
+    });
+  });
+
+  document.getElementById('graceInput').addEventListener('input',(e)=>{
+    state.grace = parseInt(e.target.value,10);
+    document.getElementById('graceLabel').textContent = state.grace;
+  });
+
+  document.getElementById('capApply').addEventListener('click',()=>{
+    if(!state.family){
+      alert('請先選擇婚育狀況');
+      return;
+    }
+    state.loan = state.familyCap;
+    document.getElementById('loanInput').value = state.familyCap;
+    render();
+  });
+
+  const familyLabel = {normal:'一般家庭', newlywed:'新婚家庭', kids:'育兒家庭'};
+  const regionLabel = {taipei:'台北市', newzhu:'新北・新竹', other:'其他縣市'};
+
+  // ---------- amortization engine ----------
+  function pmt(P, annualRate, nMonths){
+    if(nMonths<=0) return 0;
+    const r = annualRate/12;
+    if(r===0) return P/nMonths;
+    return P*r/(1-Math.pow(1+r,-nMonths));
+  }
+
+  // stepped subsidy schedule: cumulative month boundaries -> annual rate
+  const STEP_BOUNDARIES = [36, 48, 60, 72]; // end of yr3, yr4, yr5, yr6
+  const STEP_RATES = [0.01775, 0.01900, 0.02025, 0.02150, 0.02275];
+  function rateAtMonth(m){
+    for(let i=0;i<STEP_BOUNDARIES.length;i++){
+      if(m < STEP_BOUNDARIES[i]) return STEP_RATES[i];
+    }
+    return STEP_RATES[STEP_RATES.length-1];
+  }
+
+  function simulate(P, nTotal, graceMonths, rateFn){
+    let bal = P;
+    let payment = 0;
+    let lastRate = null;
+    const records = [];
+    for(let m=0; m<nTotal && bal>0.5; m++){
+      const rate = rateFn(m);
+      const inGrace = m < graceMonths;
+      const interest = bal*rate/12;
+      if(inGrace){
+        records.push({rate, balanceStart:bal, payment:interest, interest});
+        lastRate = null; // force recompute once grace ends
+        continue;
+      }
+      if(rate !== lastRate){
+        payment = pmt(bal, rate, nTotal-m);
+        lastRate = rate;
+      }
+      const principal = Math.min(payment - interest, bal);
+      records.push({rate, balanceStart:bal, payment, interest});
+      bal -= principal;
+    }
+    return records;
+  }
+
+  function computeResult(){
+    const P = state.loan * 10000;
+    const nTotal = state.term * 12;
+    const graceMonths = Math.min(state.grace * 12, Math.max(nTotal-1,0));
+
+    const records = simulate(P, nTotal, graceMonths, rateAtMonth);
+    const noSubRecords = simulate(P, nTotal, graceMonths, ()=>0.02275);
+
+    const at = (arr, idx)=> arr.length ? arr[Math.min(idx, arr.length-1)] : {payment:0, interest:0, balanceStart:0};
+
+    const pmtStage1 = at(records, graceMonths).payment;
+    const pmtYear7 = at(records, 72).payment;
+    const pmtNoSub = at(noSubRecords, graceMonths).payment;
+
+    // interest saved over first 6 years: subsidized interest actually paid
+    // vs. interest that would accrue at the flat reference rate on the same balance path
+    const horizon = Math.min(72, records.length);
+    let interestSub = 0, interestRef = 0;
+    for(let i=0;i<horizon;i++){
+      interestSub += records[i].interest;
+      interestRef += records[i].balanceStart * 0.02275/12;
+    }
+    const interestSaved = Math.max(0, interestRef - interestSub);
+
+    return {pmtStage1, pmtYear7, pmtNoSub, interestSaved};
+  }
+
+  function fmt(n){
+    return '$' + Math.round(n).toLocaleString('en-US');
+  }
+  function fmtPlain(n){
+    return Math.round(n).toLocaleString('en-US');
+  }
+
+  function render(){
+    const complete = !!(state.region && state.family && state.age>0 && state.term>0 && state.income>0 && state.price>0 && state.loan>0);
+
+    // cap note
+    if(state.family){
+      document.getElementById('capNote').textContent = `上限：${state.familyCap.toLocaleString()} 萬（${familyLabel[state.family]}）`;
+    } else {
+      document.getElementById('capNote').textContent = '請先選擇婚育狀況';
+    }
+
+    const banner = document.getElementById('eligBanner');
+    const listEl = document.getElementById('eligList');
+
+    if(!complete){
+      banner.textContent = '請完成上方資料以查看資格';
+      banner.classList.remove('fail');
+      banner.classList.add('pending');
+      listEl.innerHTML = `<div class="elig-row"><div><div class="elig-sub" style="padding:4px 0;">填寫地區、婚育狀況、年齡、貸款年限、年所得、房屋總價與貸款金額後，即可查看資格判定結果。</div></div></div>`;
+    } else {
+      banner.classList.remove('pending');
+
+      // eligibility checks
+      const checks = [
+        {
+          ok: (state.age + state.term) <= 80 && state.age < 50,
+          main: '年齡＋貸款年限 ≤ 80',
+          sub: `目前 ${state.age} 歲＋${state.term} 年 ＝ ${state.age+state.term}`
+        },
+        {
+          ok: state.income <= 200,
+          main: '本人年所得 ≤ 200 萬元',
+          sub: `目前所得 ${state.income} 萬元`
+        },
+        {
+          ok: state.price <= state.regionCap,
+          main: `房屋總價 ≤ ${state.regionCap.toLocaleString()} 萬元（${regionLabel[state.region]}）`,
+          sub: `目前總價 ${state.price} 萬元`
+        },
+        {
+          ok: state.loan <= state.familyCap,
+          main: `貸款金額 ≤ ${state.familyCap.toLocaleString()} 萬元（${familyLabel[state.family]}）`,
+          sub: `目前貸款 ${state.loan} 萬元`
+        }
+      ];
+
+      const allOk = checks.every(c=>c.ok);
+      banner.textContent = allOk ? '符合申貸資格' : '尚未符合申貸資格';
+      banner.classList.toggle('fail', !allOk);
+
+      listEl.innerHTML = '';
+      checks.forEach(c=>{
+        const row = document.createElement('div');
+        row.className = 'elig-row';
+        row.innerHTML = `
+          <div class="elig-check ${c.ok?'':'no'}">${c.ok?'✓':'✕'}</div>
+          <div>
+            <div class="elig-main">${c.main}</div>
+            <div class="elig-sub">${c.sub}</div>
+          </div>`;
+        listEl.appendChild(row);
+      });
+    }
+
+    // calculation result
+    if(!complete){
+      document.getElementById('resultBig').textContent = '－';
+      document.getElementById('resultCap').textContent = '請完成上方資料以顯示試算結果';
+      document.getElementById('resultSave').textContent = '0';
+      document.getElementById('pmtYear7').textContent = '－';
+      document.getElementById('pmtNoSub').textContent = '－';
+    } else {
+      const res = computeResult();
+      document.getElementById('resultBig').textContent = fmt(res.pmtStage1);
+      document.getElementById('resultCap').textContent = `前 3 年每月應繳（補貼後 1.775%）`;
+      document.getElementById('resultSave').textContent = fmtPlain(res.interestSaved);
+      document.getElementById('pmtYear7').textContent = fmt(res.pmtYear7);
+      document.getElementById('pmtNoSub').textContent = fmt(res.pmtNoSub);
+    }
+
+    // bar chart
+    const rates = [
+      {label:'1.775%', yr:'1–3年'},
+      {label:'1.900%', yr:'4年'},
+      {label:'2.025%', yr:'5年'},
+      {label:'2.150%', yr:'6年'},
+      {label:'2.275%', yr:'7年起', last:true},
+    ];
+    const heights = [40,60,75,90,100];
+    const barsEl = document.getElementById('bars');
+    barsEl.innerHTML = '';
+    rates.forEach((r,i)=>{
+      const col = document.createElement('div');
+      col.className = 'bar-col';
+      col.innerHTML = `
+        <div class="bar-rate">${r.label}</div>
+        <div class="bar-fill ${r.last?'last':''}" style="height:${heights[i]}%"></div>
+        <div class="bar-yr">${r.yr}</div>`;
+      barsEl.appendChild(col);
+    });
+  }
+
+  render();
+
+  // ---------- sale profit/loss (房地合一稅) calculator ----------
+  function fmtWan(n, withSign){
+    const rounded = Math.round(n*10)/10;
+    const abs = Math.abs(rounded).toLocaleString('en-US', {minimumFractionDigits: rounded%1===0?0:1, maximumFractionDigits:1});
+    if(withSign){
+      return (rounded<0? '－' : '+') + abs + '萬';
+    }
+    return abs + '萬';
+  }
+
+  function holdingRateInfo(buyDate, sellDate){
+    const days = Math.max(0, (sellDate - buyDate) / (1000*60*60*24));
+    const years = days/365;
+    let rate, label;
+    if(years <= 2){ rate=0.45; label='持有≤2年 45%'; }
+    else if(years <= 5){ rate=0.35; label='持有2-5年 35%'; }
+    else if(years <= 10){ rate=0.20; label='持有5-10年 20%'; }
+    else { rate=0.15; label='持有>10年 15%'; }
+    const wholeYears = Math.floor(years);
+    const months = Math.floor((years-wholeYears)*12);
+    return {rate, label, wholeYears, months, years};
+  }
+
+  document.getElementById('saleCalcBtn').addEventListener('click', calculateSaleProfit);
+
+  function calculateSaleProfit(){
+    const sellPrice = parseFloat(document.getElementById('saleSellPrice').value) || 0;
+    const buyPrice = parseFloat(document.getElementById('saleBuyPrice').value) || 0;
+    const buyDateVal = document.getElementById('saleBuyDate').value;
+    const sellDateVal = document.getElementById('saleSellDate').value;
+
+    if(sellPrice<=0 || buyPrice<=0 || !buyDateVal || !sellDateVal){
+      alert('請填寫預計成交總價、原始購入總價，以及購入／售出日期');
+      return;
+    }
+
+    const buyAgencyFee = parseFloat(document.getElementById('saleBuyAgencyFee').value) || 0;
+    const renovationFee = parseFloat(document.getElementById('saleRenovationFee').value) || 0;
+    const otherFee = parseFloat(document.getElementById('saleOtherFee').value) || 0;
+    const agencyRate = parseFloat(document.getElementById('saleAgencyRate').value) || 0;
+    const notaryFee = parseFloat(document.getElementById('saleNotaryFee').value) || 0;
+    const landValueTax = parseFloat(document.getElementById('saleLandValueTax').value) || 0;
+    const selfUse = document.getElementById('saleSelfUse').checked;
+    const repurchase = document.getElementById('saleRepurchase').checked;
+
+    const buyDate = new Date(buyDateVal);
+    const sellDate = new Date(sellDateVal);
+    const holdInfo = holdingRateInfo(buyDate, sellDate);
+
+    const sellAgencyFee = sellPrice * (agencyRate/100);
+
+    const purchaseCost = buyPrice + buyAgencyFee + renovationFee + otherFee;
+    const sellSideCosts = sellAgencyFee + notaryFee; // fees deductible from taxable gain
+    const taxableIncome = Math.max(0, sellPrice - purchaseCost - sellSideCosts);
+
+    let houseLandTax, rateLabel;
+    if(selfUse){
+      const taxable = Math.max(0, taxableIncome-400);
+      houseLandTax = taxable*0.10;
+      rateLabel = '自住優惠 400萬免稅+10%';
+    } else {
+      houseLandTax = taxableIncome*holdInfo.rate;
+      rateLabel = holdInfo.label;
+    }
+
+    const totalTaxFees = sellAgencyFee + notaryFee + landValueTax + houseLandTax;
+    const netCash = sellPrice - totalTaxFees;
+    const profit = netCash - purchaseCost;
+    const roi = purchaseCost>0 ? (profit/purchaseCost*100) : 0;
+
+    // ---- render hero ----
+    document.getElementById('saleProfitBig').textContent = fmtWan(profit,false);
+    document.getElementById('saleProfitBig').style.color = profit>=0 ? '#3f7a37' : '#b1504f';
+    document.getElementById('saleCostSub').textContent = `買入總成本 ${Math.round(purchaseCost).toLocaleString()}萬，扣除所有稅費後`;
+    document.getElementById('saleRoiBig').textContent = (roi>=0?'+':'') + roi.toFixed(1) + '%';
+    document.getElementById('saleRoiBig').style.color = roi>=0 ? '#3f7a37' : '#b1504f';
+    document.getElementById('saleHoldSub').textContent = `持有 ${holdInfo.wholeYears} 年 ${holdInfo.months} 個月（預計）`;
+
+    // ---- key numbers ----
+    document.getElementById('kSellPrice').textContent = fmtWan(sellPrice,false);
+    document.getElementById('kTaxFees').textContent = fmtWan(totalTaxFees,false);
+    document.getElementById('kTaxFeesPct').textContent = `佔成交價 ${sellPrice>0?(totalTaxFees/sellPrice*100).toFixed(1):'0'}%`;
+    document.getElementById('kProfit').textContent = fmtWan(profit,true);
+    document.getElementById('kRoi').textContent = `ROI ${roi>=0?'+':''}${roi.toFixed(1)}%`;
+    document.getElementById('kRate').textContent = selfUse ? '10%*' : (holdInfo.rate*100)+'%';
+    document.getElementById('kRateSub').textContent = selfUse ? '自住優惠（400萬免稅）' : `持有${holdInfo.wholeYears}年${holdInfo.months}個月`;
+
+    // ---- ledger ----
+    document.getElementById('lSellPrice').textContent = fmtWan(sellPrice,false);
+    document.getElementById('lBuyPrice').textContent = '－'+fmtWan(buyPrice,false);
+    document.getElementById('lBuyAgency').textContent = '－'+fmtWan(buyAgencyFee,false);
+
+    const renoRow = document.getElementById('lRenovationRow');
+    if(renovationFee>0){ renoRow.style.display='flex'; document.getElementById('lRenovation').textContent='－'+fmtWan(renovationFee,false); }
+    else renoRow.style.display='none';
+
+    const otherRow = document.getElementById('lOtherFeeRow');
+    if(otherFee>0){ otherRow.style.display='flex'; document.getElementById('lOtherFee').textContent='－'+fmtWan(otherFee,false); }
+    else otherRow.style.display='none';
+
+    document.getElementById('lSellAgency').textContent = '－'+fmtWan(sellAgencyFee,false);
+    document.getElementById('lAgencyRateTag').textContent = agencyRate+'%';
+
+    const notaryRow = document.getElementById('lNotaryRow');
+    if(notaryFee>0){ notaryRow.style.display='flex'; document.getElementById('lNotary').textContent='－'+fmtWan(notaryFee,false); }
+    else notaryRow.style.display='none';
+
+    const landTaxRow = document.getElementById('lLandTaxRow');
+    if(landValueTax>0){ landTaxRow.style.display='flex'; document.getElementById('lLandTax').textContent='－'+fmtWan(landValueTax,false); }
+    else landTaxRow.style.display='none';
+
+    document.getElementById('lTaxable').textContent = fmtWan(taxableIncome,false);
+    document.getElementById('lHouseLandTax').textContent = '－'+fmtWan(houseLandTax,false);
+    document.getElementById('lRateTag').textContent = rateLabel;
+
+    document.getElementById('lNetCash').textContent = fmtWan(netCash,false);
+    document.getElementById('lProfit').textContent = fmtWan(profit,true);
+
+    // ---- horizontal bar chart ----
+    const bars = [
+      {label:'買屋仲介費', value:buyAgencyFee, color:'#7fc29a'},
+      {label:`出售仲介費 ${agencyRate}%`, value:sellAgencyFee, color:'#7ba7db'},
+      {label:'房地合一稅', value:houseLandTax, color:'#e08b8b'},
+    ];
+    if(notaryFee>0) bars.push({label:'代書相關費用', value:notaryFee, color:'#c9b3d6'});
+    if(landValueTax>0) bars.push({label:'土地增值稅', value:landValueTax, color:'#d9b77a'});
+
+    const maxVal = Math.max(1, ...bars.map(b=>b.value));
+    const hbarCard = document.getElementById('hbarCard');
+    hbarCard.innerHTML = bars.map(b=>`
+      <div class="hbar-row">
+        <div class="hbar-label"><span>${b.label}</span><span>${fmtWan(b.value,false)}</span></div>
+        <div class="hbar-track"><div class="hbar-fill" style="width:${(b.value/maxVal*100).toFixed(1)}%;background:${b.color};"></div></div>
+      </div>`).join('');
+
+    // ---- repurchase note ----
+    if(repurchase){
+      document.getElementById('repurchaseNote').innerHTML =
+        '已勾選重購退稅：實際退稅金額需比對新屋成交總價與本次舊屋售價，並確認購買日在出售日前後 2 年內，且供本人／配偶／未成年子女自住使用，建議洽代書或稅務人員核算實際退稅金額。';
+    }
+
+    document.getElementById('saleResultWrap').style.display = 'block';
+    document.getElementById('saleResultWrap').scrollIntoView({behavior:'smooth', block:'start'});
+  }
+
+  // ---------- PWA: register service worker for offline / home-screen app use ----------
+  if('serviceWorker' in navigator){
+    window.addEventListener('load', ()=>{
+      navigator.serviceWorker.register('service-worker.js').catch(()=>{ /* not hosted yet, ignore */ });
+    });
+  }
+})();
+</script>
+</body>
+</html>
