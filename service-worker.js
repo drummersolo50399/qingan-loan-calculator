@@ -1,4 +1,4 @@
-const CACHE_NAME = 'qingan-loan-v1';
+const CACHE_NAME = 'qingan-loan-v2';
 const ASSETS = [
   './index.html',
   './manifest.json',

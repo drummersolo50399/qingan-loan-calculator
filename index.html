@@ -1575,7 +1575,7 @@
         `寬限期 <b>${Math.round(graceYears * 10) / 10}</b> 年只繳息，` +
         `期間共繳利息約 <b>${fmt(res.graceInterest)}</b>，` +
         `本金仍是 <b>${fmtPlain(res.principal)}</b> 元一毛未還。<br>` +
-        `期滿改以剩餘 <b>${remainYears}</b> 年攚還，月付金 <b>${fmt(res.pmtStage1)}</b>，` +
+        `期滿改以剩餘 <b>${remainYears}</b> 年摊還，月付金 <b>${fmt(res.pmtStage1)}</b>，` +
         `比不用寬限期的 ${fmt(res.pmtNoGrace)} 多 <b>${fmt(diff)}</b>。`;
     } else {
       noteEl.innerHTML =
