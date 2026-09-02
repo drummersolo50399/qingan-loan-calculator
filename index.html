@@ -458,6 +458,26 @@
   .split-card .label{font-size:12px;color:var(--ink-soft);margin-bottom:6px;}
   .split-card .val{font-family:var(--serif);font-size:18px;font-weight:700;color:var(--ink);}
 
+  /* ---- interest-only (grace) ---- */
+  .io-card{
+    margin:16px 16px 0;
+    background:#fff;border:1px solid var(--line);
+    border-radius:16px;padding:18px 14px 16px;text-align:center;
+  }
+  .io-card h3{font-size:14px;margin:0 0 14px;font-weight:800;color:var(--ink);}
+  .io-big{font-family:var(--serif);font-size:30px;font-weight:700;color:var(--purple-accent);letter-spacing:.5px;}
+  .io-cap{font-size:12.5px;color:#8a7566;margin-top:6px;}
+  .io-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:6px;margin-top:14px;}
+  .io-cell{background:var(--lav-surface);border-radius:12px;padding:10px 2px;}
+  .io-cell .yr{font-size:10.5px;color:var(--ink-soft);margin-bottom:4px;}
+  .io-cell .amt{font-family:var(--serif);font-size:12.5px;font-weight:700;color:var(--ink);}
+  .io-note{
+    margin-top:12px;padding:11px 12px;
+    background:var(--lav-surface);border-radius:12px;
+    font-size:12px;line-height:1.75;color:var(--ink-soft);text-align:left;
+  }
+  .io-note b{color:var(--purple-accent);}
+
   .timeline-card{
     margin:16px 16px 0;
     background:#fff;border:1px solid var(--line);
@@ -894,6 +914,15 @@
     </div>
   </div>
 
+  <!-- INTEREST-ONLY (寬限期) -->
+  <div class="io-card">
+    <h3>只繳息不還本（寬限期）試算</h3>
+    <div class="io-big" id="ioBig">－</div>
+    <div class="io-cap" id="ioCap">前 3 年只繳息月付金（1.775%，本金不減）</div>
+    <div class="io-grid" id="ioGrid"></div>
+    <div class="io-note" id="ioNote"></div>
+  </div>
+
   <div class="timeline-card">
     <h3>7 年利率時間軸</h3>
     <div class="bars" id="bars"></div>
@@ -1306,6 +1335,7 @@
   document.getElementById('graceInput').addEventListener('input',(e)=>{
     state.grace = parseInt(e.target.value,10);
     document.getElementById('graceLabel').textContent = state.grace;
+    render();
   });
 
   document.getElementById('capApply').addEventListener('click',()=>{
@@ -1388,7 +1418,24 @@
     }
     const interestSaved = Math.max(0, interestRef - interestSub);
 
-    return {pmtStage1, pmtYear7, pmtNoSub, interestSaved};
+    // ---- interest-only (寬限期) view: pay interest only, principal untouched ----
+    const ioPayments = STEP_RATES.map(r => P * r / 12);
+
+    // what the payment would be with NO grace period, for comparison
+    const noGrace = simulate(P, nTotal, 0, rateAtMonth);
+    const pmtNoGrace = noGrace.length ? noGrace[0].payment : 0;
+
+    // interest actually paid during the chosen grace period (principal stays at P)
+    let graceInterest = 0;
+    for(let i=0; i<Math.min(graceMonths, records.length); i++){
+      graceInterest += records[i].interest;
+    }
+
+    return {
+      pmtStage1, pmtYear7, pmtNoSub, interestSaved,
+      ioPayments, pmtNoGrace, graceInterest,
+      graceMonths, nTotal, principal:P
+    };
   }
 
   function fmt(n){
@@ -1468,6 +1515,9 @@
       document.getElementById('resultSave').textContent = '0';
       document.getElementById('pmtYear7').textContent = '－';
       document.getElementById('pmtNoSub').textContent = '－';
+      document.getElementById('ioBig').textContent = '－';
+      document.getElementById('ioGrid').innerHTML = '';
+      document.getElementById('ioNote').textContent = '完成上方資料後，這裡會顯示「完全不繳本金、只繳利息」的每月金額。';
     } else {
       const res = computeResult();
       document.getElementById('resultBig').textContent = fmt(res.pmtStage1);
@@ -1475,6 +1525,7 @@
       document.getElementById('resultSave').textContent = fmtPlain(res.interestSaved);
       document.getElementById('pmtYear7').textContent = fmt(res.pmtYear7);
       document.getElementById('pmtNoSub').textContent = fmt(res.pmtNoSub);
+      renderInterestOnly(res);
     }
 
     // bar chart
@@ -1497,6 +1548,42 @@
         <div class="bar-yr">${r.yr}</div>`;
       barsEl.appendChild(col);
     });
+  }
+
+  const IO_LABELS = ['1–3年', '第4年', '第5年', '第6年', '第7年起'];
+
+  function renderInterestOnly(res){
+    document.getElementById('ioBig').textContent = fmt(res.ioPayments[0]);
+
+    const gridEl = document.getElementById('ioGrid');
+    gridEl.innerHTML = '';
+    res.ioPayments.forEach((amt, i) => {
+      const cell = document.createElement('div');
+      cell.className = 'io-cell';
+      cell.innerHTML = `
+        <div class="yr">${IO_LABELS[i]}</div>
+        <div class="amt">${fmt(amt)}</div>`;
+      gridEl.appendChild(cell);
+    });
+
+    const graceYears = res.graceMonths / 12;
+    const noteEl = document.getElementById('ioNote');
+    if(res.graceMonths > 0){
+      const remainYears = Math.round((res.nTotal - res.graceMonths) / 12 * 10) / 10;
+      const diff = Math.max(0, res.pmtStage1 - res.pmtNoGrace);
+      noteEl.innerHTML =
+        `寬限期 <b>${Math.round(graceYears * 10) / 10}</b> 年只繳息，` +
+        `期間共繳利息約 <b>${fmt(res.graceInterest)}</b>，` +
+        `本金仍是 <b>${fmtPlain(res.principal)}</b> 元一毛未還。<br>` +
+        `期滿改以剩餘 <b>${remainYears}</b> 年攚還，月付金 <b>${fmt(res.pmtStage1)}</b>，` +
+        `比不用寬限期的 ${fmt(res.pmtNoGrace)} 多 <b>${fmt(diff)}</b>。`;
+    } else {
+      noteEl.innerHTML =
+        `上表為【完全不繳本金、只繳利息】的每月金額（本金維持 ` +
+        `<b>${fmtPlain(res.principal)}</b> 元不減）。<br>` +
+        `目前寬限期設為 <b>0</b> 年；拉上方「寬限期」滑桿選 1–5 年，` +
+        `即可看寬限期間的利息總額與期滿後的月付金。`;
+    }
   }
 
   render();
