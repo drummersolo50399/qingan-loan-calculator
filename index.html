@@ -975,6 +975,193 @@
 
   <div style="height:10px;"></div>
 
+  <!-- ============ BUY COST CALCULATOR (購屋成本試算) ============ -->
+  <div class="section-row" id="buySection" style="margin-top:8px;">
+    <h2>購屋成本試算</h2>
+    <span class="hint">總預備金</span>
+  </div>
+
+  <div class="calc-card">
+    <div class="field-label" style="margin-top:0;">成交總價（萬元）</div>
+    <div class="num-input">
+      <input type="number" id="buyPrice" placeholder="例如 1200">
+      <span class="num-suffix">萬元</span>
+      <div class="stepper">
+        <button data-target="buyPrice" data-dir="50">▲</button>
+        <button data-target="buyPrice" data-dir="-50">▼</button>
+      </div>
+    </div>
+
+    <div class="field-label">貸款金額（萬元）</div>
+    <div class="num-input">
+      <input type="number" id="buyLoan" placeholder="自動帶入上方貸款試算">
+      <span class="num-suffix">萬元</span>
+      <div class="stepper">
+        <button data-target="buyLoan" data-dir="50">▲</button>
+        <button data-target="buyLoan" data-dir="-50">▼</button>
+      </div>
+    </div>
+    <div class="cap-note">預設帶入上方「貸款試算」填的金額，可直接改。成交總價減貸款金額即為頭期款。</div>
+  </div>
+
+  <div class="calc-card">
+    <div class="field-label" style="margin-top:0;color:var(--purple-accent);">課稅現值（契稅／印花稅／登記費的稅基）</div>
+
+    <label class="opt-check">
+      <input type="checkbox" id="buyEstimate">
+      <span class="opt-check-box">≈</span>
+      <span class="opt-check-text">我沒有謄本，用成交價估算<br><small>勾選後改用比例推估，算出來只能當粗估</small></span>
+    </label>
+
+    <div id="buyActualWrap">
+      <div class="row2">
+        <div>
+          <div class="field-label">房屋評定現值（萬元）</div>
+          <div class="num-input"><input type="number" id="buyHouseValue" placeholder="0"></div>
+        </div>
+        <div>
+          <div class="field-label">土地公告現值（萬元）</div>
+          <div class="num-input"><input type="number" id="buyLandValue" placeholder="0"></div>
+        </div>
+      </div>
+      <div class="cap-note">兩個數字都在謄本或房屋稅／地價稅稅單上。<b>不是成交價</b>，通常只有成交價的 15～30%。</div>
+    </div>
+
+    <div id="buyEstimateWrap" style="display:none;">
+      <div class="row2">
+        <div>
+          <div class="field-label">房屋現值佔成交價（%）</div>
+          <div class="num-input">
+            <input type="number" id="buyHouseRatio" value="15" step="1">
+            <span class="num-suffix">%</span>
+          </div>
+        </div>
+        <div>
+          <div class="field-label">土地現值佔成交價（%）</div>
+          <div class="num-input">
+            <input type="number" id="buyLandRatio" value="20" step="1">
+            <span class="num-suffix">%</span>
+          </div>
+        </div>
+      </div>
+      <div class="cap-note">預設值為一般中古大樓的概略比例。屋齡越新、地段越蛋黃，房屋現值比例越高。</div>
+    </div>
+  </div>
+
+  <div class="calc-card">
+    <div class="field-label" style="margin-top:0;color:var(--purple-accent);">費率設定</div>
+
+    <div class="row2">
+      <div>
+        <div class="field-label">買方仲介費率（%）</div>
+        <div class="num-input">
+          <input type="number" id="buyAgencyRate" value="2" step="0.1">
+          <span class="num-suffix">%</span>
+        </div>
+      </div>
+      <div>
+        <div class="field-label">履約保證費率（%）</div>
+        <div class="num-input">
+          <input type="number" id="buyEscrowRate" value="0.06" step="0.01">
+          <span class="num-suffix">%</span>
+        </div>
+      </div>
+    </div>
+    <div class="cap-note">仲介費以成交總價計。履保費一般為成交價 0.06%，實務上常由買賣雙方各半負擔，可自行調整。</div>
+  </div>
+
+  <div class="calc-card">
+    <div class="field-label" style="margin-top:0;color:var(--purple-accent);">代書與其他支出（元）</div>
+
+    <div class="row2">
+      <div>
+        <div class="field-label">代書費：買賣過戶</div>
+        <div class="num-input"><input type="number" id="buyNotaryTransfer" value="12000"></div>
+      </div>
+      <div>
+        <div class="field-label">代書費：抵押權設定</div>
+        <div class="num-input"><input type="number" id="buyNotaryMortgage" value="6000"></div>
+      </div>
+    </div>
+    <div class="cap-note">各家代書行情不同，另可能有實價登錄申報費、謄本規費，請併入下方「其他費用」。</div>
+
+    <div class="row2">
+      <div>
+        <div class="field-label">火險＋地震險</div>
+        <div class="num-input"><input type="number" id="buyInsurance" value="4000"></div>
+      </div>
+      <div>
+        <div class="field-label">房屋稅／地價稅找補</div>
+        <div class="num-input"><input type="number" id="buyTaxAdjust" value="0"></div>
+      </div>
+    </div>
+    <div class="cap-note">保險為貸款銀行要求投保之首年保費；稅費找補依交屋日按日數比例分攤給賣方。</div>
+
+    <div class="row2">
+      <div>
+        <div class="field-label">裝潢／家電／搬家</div>
+        <div class="num-input"><input type="number" id="buyRenovation" value="0"></div>
+      </div>
+      <div>
+        <div class="field-label">其他費用</div>
+        <div class="num-input"><input type="number" id="buyOtherFee" value="0"></div>
+      </div>
+    </div>
+
+    <button class="cta" id="buyCalcBtn" style="margin:18px 0 0;width:100%;">試算總預備金 →</button>
+  </div>
+
+  <!-- RESULT -->
+  <div id="buyResultWrap" style="display:none;">
+    <div class="section-row" style="margin-top:26px;"><h2>購屋總預備金</h2></div>
+
+    <div class="sale-hero">
+      <div class="sale-hero-row">
+        <div>
+          <div class="sale-hero-label">需準備現金</div>
+          <div class="sale-hero-big" id="buyTotalBig">0 萬</div>
+          <div class="sale-hero-sub" id="buyTotalSub">頭期款 0 萬 ＋ 稅費雜支 0 元</div>
+        </div>
+        <div style="text-align:right;">
+          <div class="sale-hero-label">稅費佔成交價</div>
+          <div class="sale-hero-roi" id="buyFeePctBig">0%</div>
+          <div class="sale-hero-sub" id="buyModeSub">依實際現值計算</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="sale-keynum-grid">
+      <div class="sale-keynum">
+        <div class="label">成交總價</div>
+        <div class="val" id="kBuyPrice">0 萬</div>
+      </div>
+      <div class="sale-keynum">
+        <div class="label">頭期款</div>
+        <div class="val" id="kBuyDown">0 萬</div>
+        <div class="sub" id="kBuyDownPct">佔成交價 0%</div>
+      </div>
+      <div class="sale-keynum">
+        <div class="label">稅費雜支合計</div>
+        <div class="val" id="kBuyFees">0 元</div>
+        <div class="sub">不含頭期款</div>
+      </div>
+      <div class="sale-keynum highlight">
+        <div class="label">總預備金</div>
+        <div class="val" id="kBuyTotal">0 萬</div>
+        <div class="sub" id="kBuyTotalExact">0 元</div>
+      </div>
+    </div>
+
+    <div class="section-row" style="margin-top:26px;"><h2>完整費用明細</h2></div>
+    <div class="ledger-card" id="buyLedger"></div>
+
+    <button class="cta" id="buyCopyBtn" style="margin:14px 16px 0;width:calc(100% - 32px);background:#fff;color:var(--purple-accent);border:1px solid var(--purple-accent);">複製明細文字（傳 LINE 給客戶）</button>
+
+    <div class="disclaimer-box" id="buyDisclaimer"></div>
+  </div>
+
+  <div style="height:10px;"></div>
+
   <!-- SALE PROFIT/LOSS CALCULATOR -->
   <div class="section-row" id="saleSection" style="margin-top:8px;">
     <h2>售屋損益試算</h2>
@@ -1161,9 +1348,10 @@
 
 <div class="bottomnav" id="bottomnav">
   <button class="nav-item active" data-nav="home"><span class="ic">⌂</span>首頁</button>
-  <button class="nav-item" data-nav="calc"><span class="ic">▤</span>貸款試算</button>
+  <button class="nav-item" data-nav="calc"><span class="ic">▤</span>貸款</button>
   <button class="nav-item" data-nav="elig"><span class="ic">◎</span>資格</button>
-  <button class="nav-item" data-nav="sale"><span class="ic">$</span>售屋損益試算</button>
+  <button class="nav-item" data-nav="buy"><span class="ic">◈</span>購屋</button>
+  <button class="nav-item" data-nav="sale"><span class="ic">$</span>售屋</button>
   <button class="nav-item" data-nav="contact"><span class="ic">@</span>聯絡</button>
 </div>
 
@@ -1216,6 +1404,7 @@
     home:  ()=> document.getElementById('app').scrollIntoView({behavior:'smooth', block:'start'}),
     calc:  ()=> document.getElementById('calcCard').scrollIntoView({behavior:'smooth', block:'start'}),
     elig:  ()=> document.getElementById('eligBanner').scrollIntoView({behavior:'smooth', block:'start'}),
+    buy:   ()=> document.getElementById('buySection').scrollIntoView({behavior:'smooth', block:'start'}),
     sale:  ()=> document.getElementById('saleSection').scrollIntoView({behavior:'smooth', block:'start'}),
     contact: ()=> openContact()
   };
@@ -1732,6 +1921,195 @@
     document.getElementById('saleResultWrap').style.display = 'block';
     document.getElementById('saleResultWrap').scrollIntoView({behavior:'smooth', block:'start'});
   }
+
+  // ---------- 購屋成本試算 (buy cost calculator) ----------
+  const BUY_PREF_KEYS = ['buyAgencyRate','buyEscrowRate','buyNotaryTransfer','buyNotaryMortgage','buyInsurance','buyHouseRatio','buyLandRatio'];
+
+  function buyVal(id){ return parseFloat(document.getElementById(id).value) || 0; }
+  function fmtYuan(n){ return Math.round(n).toLocaleString('en-US') + ' 元'; }
+
+  // 記住費率／代書費這類每次都一樣的設定（物件金額類不記）
+  function loadBuyPrefs(){
+    try{
+      const raw = localStorage.getItem('qingan_buy_prefs');
+      if(!raw) return;
+      const o = JSON.parse(raw);
+      BUY_PREF_KEYS.forEach(k=>{ if(o[k]!==undefined && o[k]!=='') document.getElementById(k).value = o[k]; });
+    }catch(e){ /* 無痕模式或封鎖儲存，忽略 */ }
+  }
+  function saveBuyPrefs(){
+    try{
+      const o = {};
+      BUY_PREF_KEYS.forEach(k=>{ o[k] = document.getElementById(k).value; });
+      localStorage.setItem('qingan_buy_prefs', JSON.stringify(o));
+    }catch(e){ /* 忽略 */ }
+  }
+  loadBuyPrefs();
+
+  // 估算模式切換
+  const buyEstimateBox = document.getElementById('buyEstimate');
+  buyEstimateBox.addEventListener('change', ()=>{
+    const on = buyEstimateBox.checked;
+    document.getElementById('buyActualWrap').style.display = on ? 'none' : 'block';
+    document.getElementById('buyEstimateWrap').style.display = on ? 'block' : 'none';
+  });
+
+  // 貸款金額自動帶入上方貸款試算（可覆寫）：使用者尚未手動改過才自動同步
+  let buyLoanTouched = false;
+  const buyLoanInput = document.getElementById('buyLoan');
+  buyLoanInput.addEventListener('input', ()=>{ buyLoanTouched = true; });
+  function syncBuyLoan(){
+    if(buyLoanTouched) return;
+    const upstream = parseFloat(document.getElementById('loanInput').value);
+    if(upstream > 0) buyLoanInput.value = upstream;
+  }
+  document.getElementById('loanInput').addEventListener('input', syncBuyLoan);
+  syncBuyLoan();
+
+  let lastBuyResult = null;
+
+  document.getElementById('buyCalcBtn').addEventListener('click', calculateBuyCost);
+
+  function calculateBuyCost(){
+    saveBuyPrefs();
+
+    const priceWan = buyVal('buyPrice');
+    if(priceWan <= 0){
+      alert('請先填入成交總價');
+      document.getElementById('buyPrice').focus();
+      return;
+    }
+    const price = priceWan * 10000;
+    const loan  = buyVal('buyLoan') * 10000;
+    const down  = Math.max(0, price - loan);
+
+    const estimate = buyEstimateBox.checked;
+    let houseVal, landVal;
+    if(estimate){
+      houseVal = price * buyVal('buyHouseRatio') / 100;
+      landVal  = price * buyVal('buyLandRatio')  / 100;
+    }else{
+      houseVal = buyVal('buyHouseValue') * 10000;
+      landVal  = buyVal('buyLandValue')  * 10000;
+    }
+
+    // ---- 法定稅費（稅率全國一致，寫死）----
+    const deedTax     = houseVal * 0.06;              // 契稅 6%（房屋評定現值）
+    const stampTax    = (houseVal + landVal) * 0.001; // 印花稅 0.1%
+    const regFee      = (houseVal + landVal) * 0.001; // 所有權移轉登記規費 0.1%
+    const mortgageFee = loan * 1.2 * 0.001;           // 抵押權設定規費：擔保債權額(貸款×1.2)的 0.1%
+
+    // ---- 費率型支出 ----
+    const agencyFee = price * buyVal('buyAgencyRate') / 100;
+    const escrowFee = price * buyVal('buyEscrowRate') / 100;
+
+    // ---- 手動填列 ----
+    const notaryTransfer = buyVal('buyNotaryTransfer');
+    const notaryMortgage = buyVal('buyNotaryMortgage');
+    const insurance      = buyVal('buyInsurance');
+    const taxAdjust      = buyVal('buyTaxAdjust');
+    const renovation     = buyVal('buyRenovation');
+    const otherFee       = buyVal('buyOtherFee');
+
+    const fees = deedTax + stampTax + regFee + mortgageFee + agencyFee + escrowFee
+               + notaryTransfer + notaryMortgage + insurance + taxAdjust + renovation + otherFee;
+    const total = down + fees;
+    const feePct = price > 0 ? (fees / price * 100) : 0;
+
+    // ---- hero ----
+    document.getElementById('buyTotalBig').textContent = fmtWan(total/10000);
+    document.getElementById('buyTotalSub').textContent =
+      '頭期款 ' + fmtWan(down/10000) + ' ＋ 稅費雜支 ' + fmtYuan(fees);
+    document.getElementById('buyFeePctBig').textContent = feePct.toFixed(1) + '%';
+    document.getElementById('buyModeSub').textContent = estimate ? '估算模式，非實際稅額' : '依實際課稅現值計算';
+
+    // ---- key numbers ----
+    document.getElementById('kBuyPrice').textContent = fmtWan(priceWan);
+    document.getElementById('kBuyDown').textContent  = fmtWan(down/10000);
+    document.getElementById('kBuyDownPct').textContent = '佔成交價 ' + (price>0 ? (down/price*100).toFixed(0) : 0) + '%';
+    document.getElementById('kBuyFees').textContent  = fmtYuan(fees);
+    document.getElementById('kBuyTotal').textContent = fmtWan(total/10000);
+    document.getElementById('kBuyTotalExact').textContent = fmtYuan(total);
+
+    // ---- ledger ----
+    const rows = [
+      {g:'一、自備款'},
+      {k:'頭期款（成交總價 － 貸款金額）', v:down, main:true},
+      {g:'二、法定稅費'},
+      {k:'契稅', v:deedTax, tag:'房屋現值 × 6%'},
+      {k:'印花稅', v:stampTax, tag:'現值合計 × 0.1%'},
+      {k:'所有權移轉登記規費', v:regFee, tag:'現值合計 × 0.1%'},
+      {k:'抵押權設定登記規費', v:mortgageFee, tag:'貸款 ×1.2× 0.1%'},
+      {g:'三、仲介與代書'},
+      {k:'仲介服務費', v:agencyFee, tag:buyVal('buyAgencyRate') + '%'},
+      {k:'履約保證費', v:escrowFee, tag:buyVal('buyEscrowRate') + '%'},
+      {k:'代書過戶費', v:notaryTransfer},
+      {k:'代書設定費', v:notaryMortgage},
+      {g:'四、其他支出'},
+      {k:'火險＋地震險', v:insurance},
+      {k:'房屋稅／地價稅找補', v:taxAdjust},
+      {k:'裝潢／家電／搬家', v:renovation},
+      {k:'其他費用', v:otherFee},
+      {g:'合計'},
+      {k:'稅費雜支小計', v:fees},
+      {k:'購屋總預備金', v:total, main:true}
+    ];
+
+    let html = '';
+    rows.forEach(r=>{
+      if(r.g){ html += '<div class="ledger-group">' + r.g + '</div>'; return; }
+      if(r.v === 0 && !r.main) return;   // 沒填的項目不佔版面
+      const tag = r.tag ? '<span class="tag">' + r.tag + '</span>' : '';
+      html += '<div class="ledger-row' + (r.main?' main':'') + '">'
+            + '<span>' + r.k + tag + '</span>'
+            + '<span>' + fmtYuan(r.v) + '</span></div>';
+    });
+    document.getElementById('buyLedger').innerHTML = html;
+
+    // ---- 免責聲明 ----
+    document.getElementById('buyDisclaimer').innerHTML = estimate
+      ? '<b>估算模式：</b>契稅、印花稅、登記規費的稅基為房屋評定現值與土地公告現值，本次以成交價按比例推估，<b>與實際稅額必有落差</b>，僅供現場概算。實際金額請以謄本、稅單或地政士核算為準。'
+      : '本試算之登記規費，土地部分以公告現值計算（實務上以申報地價計，通常較低），故結果偏保守。契稅、印花稅、登記規費之實際金額，仍以稅捐稽徵機關與地政事務所核定為準；代書費、履保費各家不同，請以實際報價為準。';
+
+    lastBuyResult = {rows:rows, price:price, total:total, fees:fees, down:down, estimate:estimate};
+
+    document.getElementById('buyResultWrap').style.display = 'block';
+    document.getElementById('buyResultWrap').scrollIntoView({behavior:'smooth', block:'start'});
+  }
+
+  // ---- 複製明細文字 ----
+  function fallbackCopy(txt, done){
+    const ta = document.createElement('textarea');
+    ta.value = txt;
+    ta.style.cssText = 'position:fixed;top:-9999px;left:-9999px;';
+    document.body.appendChild(ta);
+    ta.select();
+    try{ document.execCommand('copy'); done(); }catch(e){ alert('複製失敗，請手動選取'); }
+    document.body.removeChild(ta);
+  }
+
+  document.getElementById('buyCopyBtn').addEventListener('click', ()=>{
+    if(!lastBuyResult) return;
+    const r = lastBuyResult;
+    let txt = '【購屋成本試算】\n成交總價：' + fmtWan(r.price/10000) + '\n';
+    r.rows.forEach(row=>{
+      if(row.g){ txt += '\n' + row.g + '\n'; return; }
+      if(row.v === 0 && !row.main) return;
+      txt += '・' + row.k + '：' + fmtYuan(row.v) + '\n';
+    });
+    txt += '\n★ 需準備現金：' + fmtWan(r.total/10000) + '（' + fmtYuan(r.total) + '）\n';
+    txt += r.estimate
+      ? '\n※ 稅基以成交價比例推估，僅供概算，實際以稅單為準。'
+      : '\n※ 實際稅額以稅捐稽徵機關及地政事務所核定為準。';
+
+    const btn = document.getElementById('buyCopyBtn');
+    const done = ()=>{ btn.textContent = '已複製 ✓'; setTimeout(()=>{ btn.textContent = '複製明細文字（傳 LINE 給客戶）'; }, 1800); };
+    if(navigator.clipboard && window.isSecureContext){
+      navigator.clipboard.writeText(txt).then(done).catch(()=>fallbackCopy(txt, done));
+    }else{
+      fallbackCopy(txt, done);
+    }
+  });
 
   // ---------- PWA: register service worker for offline / home-screen app use ----------
   if('serviceWorker' in navigator){
