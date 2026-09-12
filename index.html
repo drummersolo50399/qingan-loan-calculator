@@ -1504,6 +1504,14 @@
   bindNumber('priceInput','price');
   bindNumber('loanInput','loan');
 
+  // 從估價頁（房價尺）帶總價過來：?price=1235（萬元）
+  const qp = parseFloat(new URLSearchParams(location.search).get('price'));
+  if (qp > 0) {
+    document.getElementById('priceInput').value = Math.round(qp);
+    state.price = Math.round(qp);
+    render();
+  }
+
   document.querySelectorAll('.stepper button').forEach(btn=>{
     btn.addEventListener('click',()=>{
       const targetId = btn.dataset.target;
