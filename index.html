@@ -1687,6 +1687,13 @@
     });
   });
 
+  // 直接開到指定分頁：?tab=rent（傳給租客／房東用）
+  const qtab = new URLSearchParams(location.search).get('tab');
+  if (qtab && qtab!=='contact' && navTargets[qtab]) {
+    setActiveNav(qtab);
+    window.addEventListener('load', ()=> navTargets[qtab]());
+  }
+
   const contactOverlay = document.getElementById('contactOverlay');
   function openContact(){
     contactOverlay.classList.add('show');
